@@ -36,4 +36,11 @@ public class ComplexValueTest {
         Assert.assertEquals(new ComplexValue(-3.0 / 2, -1.0 / 2), firstValue.divide(secondValue));
     }
 
+    @Test(expected = ArithmeticException.class)
+    public void division_throws_exception(){
+        firstValue = new ComplexValue(-2, 1);
+        secondValue = new ComplexValue(0, 0);
+        firstValue.divide(secondValue);
+    }
+
 }

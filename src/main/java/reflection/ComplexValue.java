@@ -1,6 +1,6 @@
 package reflection;
 
-public class ComplexValue {
+public class ComplexValue implements ComplexValueInterface{
 
     protected double real;
 
@@ -31,10 +31,28 @@ public class ComplexValue {
     }
 
     public ComplexValue divide(ComplexValue value) {
-        double temp = (real * value.real + imaginary * value.imaginary) / (Math.pow(value.real, 2) + Math.pow(value.imaginary, 2));
-        imaginary = (value.real * imaginary - real * value.imaginary) / (Math.pow(value.real, 2) + Math.pow(value.imaginary, 2));
+        if (value.real == 0 && value.imaginary == 0) throw new ArithmeticException();
+        double temp = (real * value.real + imaginary * value.imaginary) / (int) (Math.pow(value.real, 2) + Math.pow(value.imaginary, 2));
+        System.out.println((Math.pow(value.real, 2) + Math.pow(value.imaginary, 2)));
+        imaginary = (value.real * imaginary - real * value.imaginary) / (int) (Math.pow(value.real, 2) + Math.pow(value.imaginary, 2));
         real = temp;
         return this;
+    }
+
+    public double getReal() {
+        return real;
+    }
+
+    public void setReal(double real) {
+        this.real = real;
+    }
+
+    public double getImaginary() {
+        return imaginary;
+    }
+
+    public void setImaginary(double imaginary) {
+        this.imaginary = imaginary;
     }
 
     @Override
