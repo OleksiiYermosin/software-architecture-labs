@@ -1,10 +1,10 @@
 package reflection;
 
+
+import reflection.proxy.ProxyCreator;
+
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.UndeclaredThrowableException;
+import java.lang.reflect.*;
 import java.util.*;
 import java.util.function.Predicate;
 
@@ -62,12 +62,12 @@ public class Starter {
 
         System.out.println("Package name = " + exponentialComplexValueClass.getPackage().getName());
         System.out.println("Class name = " + exponentialComplexValueClass.getSimpleName());
-
-        ComplexValueInterface proxy = (ComplexValueInterface) Proxy.newProxyInstance(new ComplexValue(1, 2));
+        ComplexValueInterface proxy = (ComplexValueInterface) ProxyCreator.newProxyInstance(new ComplexValue(1, 2));
         System.out.println("Real = " + proxy.getReal());
         System.out.println("Imaginary = " + proxy.getImaginary());
         try {
             proxy.setImaginary(1);
+            proxy.setReal(2);
         }catch (UndeclaredThrowableException exception){
             System.out.println("Exception has been thrown.");
         }

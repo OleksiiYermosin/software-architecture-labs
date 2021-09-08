@@ -1,14 +1,14 @@
-package reflection;
+package reflection.proxy;
 
 import javax.naming.OperationNotSupportedException;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
-public class Proxy implements InvocationHandler {
+public class CustomInvocationHandler implements InvocationHandler {
 
     private final Object object;
 
-    private Proxy(Object object) {
+    CustomInvocationHandler(Object object) {
         this.object = object;
     }
 
@@ -18,14 +18,6 @@ public class Proxy implements InvocationHandler {
             return method.invoke(object, args);
         }
         throw new OperationNotSupportedException();
-    }
-
-    public static Object newProxyInstance(Object o){
-        return java.lang.reflect.Proxy.newProxyInstance(
-                o.getClass().getClassLoader(),
-                o.getClass().getInterfaces(),
-                new Proxy(o)
-        );
     }
 
 }
