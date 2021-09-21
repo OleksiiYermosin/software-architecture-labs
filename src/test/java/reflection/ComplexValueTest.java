@@ -1,46 +1,73 @@
 package reflection;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class ComplexValueTest {
 
     private ComplexValue firstValue;
     private ComplexValue secondValue;
 
-    @Test
-    public void testSumming() {
+    @BeforeEach
+    public void initialize(){
         firstValue = new ComplexValue(-2, 1);
         secondValue = new ComplexValue(1, -1);
-        Assert.assertEquals(new ComplexValue(-1, 0), firstValue.add(secondValue));
+    }
+
+    @Test
+    public void testSumming() {
+        Assertions.assertEquals(new ComplexValue(-1, 0), firstValue.add(secondValue));
     }
 
     @Test
     public void testSubtracting() {
-        firstValue = new ComplexValue(-2, 1);
-        secondValue = new ComplexValue(-3, -1);
-        Assert.assertEquals(new ComplexValue(1, 2), firstValue.subtract(secondValue));
+        Assertions.assertEquals(new ComplexValue(-3, 2), firstValue.subtract(secondValue));
     }
 
     @Test
     public void testMultiplying() {
-        firstValue = new ComplexValue(2, 3);
-        secondValue = new ComplexValue(-1, 1);
-        Assert.assertEquals(new ComplexValue(-5, -1), firstValue.multiply(secondValue));
+        Assertions.assertEquals(new ComplexValue(-1, 3), firstValue.multiply(secondValue));
     }
 
     @Test
     public void testDivision() {
         firstValue = new ComplexValue(-2, 1);
         secondValue = new ComplexValue(1, -1);
-        Assert.assertEquals(new ComplexValue(-3.0 / 2, -1.0 / 2), firstValue.divide(secondValue));
+        Assertions.assertEquals(new ComplexValue(-3.0 / 2, -1.0 / 2), firstValue.divide(secondValue));
     }
 
-    @Test(expected = ArithmeticException.class)
+    @Test
     public void division_throws_exception(){
         firstValue = new ComplexValue(-2, 1);
         secondValue = new ComplexValue(0, 0);
-        firstValue.divide(secondValue);
+        Assertions.assertThrows(ArithmeticException.class, () ->
+                firstValue.divide(secondValue));
     }
+
+    @Test
+    public void testHashFunction(){
+        firstValue = new ComplexValue(-1, 1);
+        secondValue = new ComplexValue(-1, 1);
+        Assertions.assertEquals(firstValue.hashCode(), secondValue.hashCode());
+        secondValue.setImaginary(3);
+        Assertions.assertNotEquals(firstValue.hashCode(), secondValue.hashCode());
+    }
+
+    @Test
+    public void testEqualsMethod(){
+        firstValue = new ComplexValue(-1, 1);
+        secondValue = new ComplexValue(-1, 1);
+        Assertions.assertEquals(firstValue, firstValue);
+        Assertions.assertNotEquals(null, firstValue);
+        Assertions.assertEquals(firstValue, secondValue);
+    }
+
+    @Test
+    public void testToStringMethod(){
+        Assertions.assertEquals( firstValue.getReal() + " " + firstValue.getImaginary() + "i", firstValue.toString());
+    }
+
+
 
 }

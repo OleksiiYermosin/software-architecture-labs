@@ -33,7 +33,6 @@ public class ComplexValue implements ComplexValueInterface{
     public ComplexValue divide(ComplexValue value) {
         if (value.real == 0 && value.imaginary == 0) throw new ArithmeticException();
         double temp = (real * value.real + imaginary * value.imaginary) / (int) (Math.pow(value.real, 2) + Math.pow(value.imaginary, 2));
-        System.out.println((Math.pow(value.real, 2) + Math.pow(value.imaginary, 2)));
         imaginary = (value.real * imaginary - real * value.imaginary) / (int) (Math.pow(value.real, 2) + Math.pow(value.imaginary, 2));
         real = temp;
         return this;
