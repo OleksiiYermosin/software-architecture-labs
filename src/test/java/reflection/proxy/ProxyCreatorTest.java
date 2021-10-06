@@ -9,8 +9,10 @@ public class ProxyCreatorTest {
 
     @Test
     void testProxyCreator() {
-        ComplexValueInterface proxy = (ComplexValueInterface) ProxyCreator.newProxyInstance(new ComplexValue(1, 2));
-        Assertions.assertTrue(proxy.getReal() == 1 && proxy.getImaginary() == 2);
+        ComplexValue object = new ComplexValue(1, 2);
+        ComplexValueInterface proxy = (ComplexValueInterface) ProxyCreator.newProxyInstance(object);
+        Assertions.assertEquals(proxy.getReal(), object.getReal());
+        Assertions.assertEquals(proxy.getImaginary(), object.getImaginary());
     }
 
 }

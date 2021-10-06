@@ -68,6 +68,4 @@ public class ComplexValueTest {
         Assertions.assertEquals( firstValue.getReal() + " " + firstValue.getImaginary() + "i", firstValue.toString());
     }
 
-
-
 }

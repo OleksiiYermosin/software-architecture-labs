@@ -21,7 +21,6 @@ public class ProxyTest {
     void testGetters(){
         Assertions.assertDoesNotThrow(() -> proxy.getImaginary());
         Assertions.assertDoesNotThrow(() -> proxy.getReal());
-
     }
 
     @Test
