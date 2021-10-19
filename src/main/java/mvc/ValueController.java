@@ -3,7 +3,11 @@ package mvc;
 import mvc.interfaces.Controller;
 import mvc.interfaces.Model;
 import mvc.interfaces.View;
-import reflection.ComplexValue;
+import patterns.command.*;
+import patterns.strategy.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ValueController implements Controller {
 
@@ -11,75 +15,46 @@ public class ValueController implements Controller {
 
     private final View view;
 
+    private final Map<String, Command> commands = new HashMap<>();
+
+    private final Map<String, Operation> operations = new HashMap<>();
+
     public ValueController(Model model, View view) {
         this.model = model;
         this.view = view;
+        initController();
+    }
+
+    private void initController(){
+        Command valuesCommand = new CalculateValuesCommand(model, view, new SummingOperation(model));
+        commands.put("add values", valuesCommand);
+        commands.put("subtract values", valuesCommand);
+        commands.put("divide values", valuesCommand);
+        commands.put("multiply values", valuesCommand);
+        commands.put("decorate value", new DecorateCommand(model, view));
+        commands.put("get superclass", new GetSuperClassCommand(model));
+        commands.put("get package", new GetPackageCommand(model));
+        commands.put("get class", new GetClassCommand(model));
+        commands.put("invoke methods", new InvokeMethodsCommand(model));
+        commands.put("exit", new ExitCommand());
+        operations.put("add values", new SummingOperation(model));
+        operations.put("subtract values", new SubtractingOperation(model));
+        operations.put("divide values", new DividingOperation(model));
+        operations.put("multiply values", new MultiplyingOperation(model));
     }
 
     public void process() {
         view.printMenu();
         String data = view.getInformation("What do you want to do?");
-        switch (data){
-            case "add values":
-                view.printInformation(addValues());
-                break;
-            case "subtract values":
-                view.printInformation(subtractValues());
-                break;
-            case "divide values":
-                view.printInformation(divideValues());
-                break;
-            case "multiply values":
-                view.printInformation(multiplyValues());
-                break;
-            case "get superclass":
-                view.printInformation(model.getSuperClassSimpleName());
-                break;
-            case "get package":
-                view.printInformation(model.getPackageName());
-                break;
-            case "get class":
-                view.printInformation(model.getClassSimpleName());
-                break;
-            case "get methods":
-                model.getMethodInfo().forEach(view::printInformation);
-                break;
-            case "invoke methods":
-                model.invokeAnnotatedMethods().forEach(view::printInformation);
-                break;
-            case "exit":
-                System.exit(0);
+        Command command = commands.getOrDefault(data, new DefaultCommand());
+        if(data.equals("add values") || data.equals("subtract values") || data.equals("divide values") || data.equals("multiply values")){
+            CalculateValuesCommand valueCommand = (CalculateValuesCommand) command;
+            valueCommand.setOperation(operations.get(data));
+            view.printInformation(valueCommand.execute());
+        } else {
+            view.printInformation(command.execute());
         }
-    }
 
-    private String addValues(){
-        ComplexValue[] values = initValues(2);
-        return model.addValues(values[0], values[1]).toString();
-    }
-
-    private String subtractValues(){
-        ComplexValue[] values = initValues(2);
-        return model.subtractValues(values[0], values[1]).toString();
-    }
-
-    private String divideValues(){
-        ComplexValue[] values = initValues(2);
-        return model.divideValues(values[0], values[1]).toString();
-    }
-
-    private String multiplyValues(){
-        ComplexValue[] values = initValues(2);
-        return model.multiplyValues(values[0], values[1]).toString();
-    }
-
-    private ComplexValue[] initValues(int valuesAmount){
-        ComplexValue[] outputArray = new ComplexValue[valuesAmount];
-        for (int i = 0; i < outputArray.length; i++){
-            view.printInformation("\tType data for " + (i+1) + " value:");
-            outputArray[i] = model.createValue(Double.parseDouble(view.getInformation("\t\tType real part:")),
-                    Double.parseDouble(view.getInformation("\t\tType imaginary part:")));
-        }
-        return outputArray;
     }
 
 }

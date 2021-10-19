@@ -1,6 +1,7 @@
 package mvc;
 
 import mvc.interfaces.Model;
+import patterns.factory.ValueFactory;
 import reflection.ComplexValue;
 import reflection.ExponentialComplexValue;
 import reflection.ReflectionUtils;
@@ -14,7 +15,8 @@ public class ValueModel implements Model {
     }
 
     public ComplexValue createValue(double realPart, double imaginaryPart){
-        return new ComplexValue(realPart, imaginaryPart);
+        //return new ComplexValue(realPart, imaginaryPart);
+        return (ComplexValue) ValueFactory.createValue("complex value", realPart, imaginaryPart);
     }
 
     @Override
