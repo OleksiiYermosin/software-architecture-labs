@@ -4,10 +4,11 @@ import reflection.ComplexValueInterface;
 
 public class RoundedDecorator implements ComplexValueInterface {
 
-    private ComplexValueInterface component;
+    private final ComplexValueInterface component;
 
     public RoundedDecorator(ComplexValueInterface component) {
         this.component = component;
+        this.component.setImaginary(0);
     }
 
     @Override
@@ -29,4 +30,12 @@ public class RoundedDecorator implements ComplexValueInterface {
     public void setImaginary(double imaginary) {
         component.setImaginary(0);
     }
+
+    @Override
+    public String toString() {
+        return component.getReal() +
+                " " + component.getImaginary() +
+                "i";
+    }
+
 }
