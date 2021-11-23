@@ -15,8 +15,10 @@ public class ValueModel implements Model {
     }
 
     public ComplexValue createValue(double realPart, double imaginaryPart){
-        //return new ComplexValue(realPart, imaginaryPart);
-        return (ComplexValue) ValueFactory.createValue("complex value", realPart, imaginaryPart);
+        ComplexValue returnValue = (ComplexValue) ValueFactory.createValue("complex value");
+        returnValue.setReal(realPart);
+        returnValue.setImaginary(imaginaryPart);
+        return returnValue;
     }
 
     @Override

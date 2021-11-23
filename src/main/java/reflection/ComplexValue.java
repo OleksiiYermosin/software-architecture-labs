@@ -6,6 +6,8 @@ public class ComplexValue implements ComplexValueInterface{
 
     protected double imaginary;
 
+    public ComplexValue() {}
+
     public ComplexValue(double real, double imaginary) {
         this.real = real;
         this.imaginary = imaginary;

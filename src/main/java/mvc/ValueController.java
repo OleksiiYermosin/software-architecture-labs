@@ -26,12 +26,12 @@ public class ValueController implements Controller {
     }
 
     private void initController(){
-        Command valuesCommand = new CalculateValuesCommand(model, view, new SummingOperation(model));
+        Command valuesCommand = new CalculateValuesCommand(new SummingOperation(model));
         commands.put("add values", valuesCommand);
         commands.put("subtract values", valuesCommand);
         commands.put("divide values", valuesCommand);
         commands.put("multiply values", valuesCommand);
-        commands.put("decorate value", new DecorateCommand(model, view));
+        commands.put("decorate value", new DecorateCommand());
         commands.put("get superclass", new GetSuperClassCommand(model));
         commands.put("get package", new GetPackageCommand(model));
         commands.put("get class", new GetClassCommand(model));

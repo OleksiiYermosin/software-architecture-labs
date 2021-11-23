@@ -6,6 +6,8 @@ public class ExponentialComplexValue extends ComplexValue{
 
     private double argument;
 
+    public ExponentialComplexValue() {}
+
     public ExponentialComplexValue(double real, double imaginary) {
         super(real, imaginary);
         module = calculateModule(this);

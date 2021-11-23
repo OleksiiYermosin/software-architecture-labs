@@ -6,14 +6,14 @@ import reflection.ExponentialComplexValue;
 
 public class ValueFactory {
 
-    public static ComplexValueInterface createValue(String type, double real, double imaginary) {
+    public static ComplexValueInterface createValue(String type) {
         ComplexValueInterface value;
         switch (type) {
             case "complex value":
-                value = new ComplexValue(real, imaginary);
+                value = new ComplexValue();
                 break;
             case "exponential value":
-                value = new ExponentialComplexValue(real, imaginary);
+                value = new ExponentialComplexValue();
                 break;
             default:
                 throw new RuntimeException("Not supported type");

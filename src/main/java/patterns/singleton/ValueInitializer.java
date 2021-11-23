@@ -6,28 +6,13 @@ import reflection.ComplexValue;
 
 public final class ValueInitializer {
 
-    private static volatile ValueInitializer instance;
-
     private final Model model;
 
     private final View view;
 
-    private ValueInitializer(Model model, View view) {
+    public ValueInitializer(Model model, View view) {
         this.model = model;
         this.view = view;
-    }
-
-    public static ValueInitializer getInstance(Model model, View view) {
-        ValueInitializer result = instance;
-        if (result != null) {
-            return result;
-        }
-        synchronized(ValueInitializer.class) {
-            if (instance == null) {
-                instance = new ValueInitializer(model, view);
-            }
-            return instance;
-        }
     }
 
     public ComplexValue[] initValues(int valuesAmount){

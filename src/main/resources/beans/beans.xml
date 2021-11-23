@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="commandLineView" class="mvc.CommandLineView"/>
+
+    <bean id="valueModel" class="mvc.ValueModel"/>
+
+    <bean id="valueController" class="mvc.ValueController">
+        <constructor-arg ref="commandLineView" />
+        <constructor-arg ref="valueModel" />
+    </bean>
+
+    <bean id="complexValue" class="patterns.factory.ValueFactory"
+        factory-method="createValue" scope="prototype">
+        <constructor-arg value="complex value"/>
+    </bean>
+
+    <bean id="exponentialComplexValue" class="patterns.factory.ValueFactory"
+          factory-method="createValue" scope="prototype">
+        <constructor-arg value="exponential value"/>
+    </bean>
+
+    <bean id="valueInitializer" class="patterns.singleton.ValueInitializer">
+        <constructor-arg ref="commandLineView" />
+        <constructor-arg ref="valueModel" />
+    </bean>
+
+</beans>
