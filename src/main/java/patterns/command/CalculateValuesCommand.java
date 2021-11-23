@@ -1,11 +1,13 @@
 package patterns.command;
 
 
+import org.springframework.stereotype.Component;
 import patterns.singleton.ValueInitializer;
 import patterns.strategy.Operation;
 import reflection.ComplexValue;
 import spring.XmlContext;
 
+@Component
 public class CalculateValuesCommand implements Command{
 
     private Operation operation;

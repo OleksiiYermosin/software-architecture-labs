@@ -6,6 +6,7 @@ import reflection.ComplexValue;
 import reflection.ExponentialComplexValue;
 import reflection.ReflectionUtils;
 import reflection.SimpleAnnotation;
+import spring.XmlContext;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class ValueModel implements Model {
     }
 
     public ComplexValue createValue(double realPart, double imaginaryPart){
-        ComplexValue returnValue = (ComplexValue) ValueFactory.createValue("complex value");
+        ComplexValue returnValue = XmlContext.getBean("complexValue", ComplexValue.class);
         returnValue.setReal(realPart);
         returnValue.setImaginary(imaginaryPart);
         return returnValue;
