@@ -26,7 +26,7 @@ public class ValueController implements Controller {
     }
 
     private void initController(){
-        Command valuesCommand = new CalculateValuesCommand(new SummingOperation(model));
+        Command valuesCommand = new CalculateValuesCommand();
         commands.put("add values", valuesCommand);
         commands.put("subtract values", valuesCommand);
         commands.put("divide values", valuesCommand);

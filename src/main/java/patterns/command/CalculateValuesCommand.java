@@ -1,19 +1,16 @@
 package patterns.command;
 
-
-import org.springframework.stereotype.Component;
 import patterns.singleton.ValueInitializer;
 import patterns.strategy.Operation;
 import reflection.ComplexValue;
-import spring.XmlContext;
+import spring.contexts.JavaContext;
 
-@Component
+
 public class CalculateValuesCommand implements Command{
 
     private Operation operation;
 
-    public CalculateValuesCommand(Operation operation) {
-        this.operation = operation;
+    public CalculateValuesCommand() {
     }
 
     public void setOperation(Operation operation) {
@@ -22,8 +19,9 @@ public class CalculateValuesCommand implements Command{
 
     @Override
     public String execute() {
-        ValueInitializer initializer = XmlContext.getBean("valueInitializer", ValueInitializer.class);
+        ValueInitializer initializer = JavaContext.getBean("valueInitializer", ValueInitializer.class);
         ComplexValue[] complexValues = initializer.initValues(2);
         return operation.performOperation(complexValues[0], complexValues[1]).toString();
     }
+
 }

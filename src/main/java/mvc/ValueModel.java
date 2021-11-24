@@ -1,12 +1,11 @@
 package mvc;
 
 import mvc.interfaces.Model;
-import patterns.factory.ValueFactory;
 import reflection.ComplexValue;
 import reflection.ExponentialComplexValue;
 import reflection.ReflectionUtils;
 import reflection.SimpleAnnotation;
-import spring.XmlContext;
+import spring.contexts.XmlContext;
 
 import java.util.List;
 

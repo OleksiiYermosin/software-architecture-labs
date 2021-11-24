@@ -4,7 +4,7 @@ package patterns.command;
 import patterns.decorator.RoundedDecorator;
 import patterns.singleton.ValueInitializer;
 import reflection.ComplexValueInterface;
-import spring.XmlContext;
+import spring.contexts.XmlContext;
 
 public class DecorateCommand implements Command{
 

@@ -2,14 +2,18 @@ package patterns.singleton;
 
 import mvc.interfaces.Model;
 import mvc.interfaces.View;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import reflection.ComplexValue;
 
+@Component
 public final class ValueInitializer {
 
     private final Model model;
 
     private final View view;
 
+    @Autowired
     public ValueInitializer(Model model, View view) {
         this.model = model;
         this.view = view;
