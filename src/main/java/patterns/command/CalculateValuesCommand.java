@@ -10,9 +10,6 @@ public class CalculateValuesCommand implements Command{
 
     private Operation operation;
 
-    public CalculateValuesCommand() {
-    }
-
     public void setOperation(Operation operation) {
         this.operation = operation;
     }
